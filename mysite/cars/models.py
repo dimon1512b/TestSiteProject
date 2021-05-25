@@ -25,3 +25,6 @@ class Cars(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Cars"
+
+	def __str__(self):
+		return f'{self.brand} {self.model} {self.version} / {self.prise_usd}$ / {self.date_created}'
