@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{% static 'cars/css/layout.css' %}">
+</head>
+<body>
+	<aside>
+		<img src="{% static 'cars/img/nissan_skyline.svg' %}" alt="nissan_skyline.svg">
+		<div class="filter">
+			<h3>Фільтрація</h3>
+			<ul>
+				<li>Тип транспорта</li>
+				<li>Тип кузова</li>
+				<li>Марка</li>
+				<li>Модель</li>
+				<li>Рік</li>
+				<li>Ціна від</li>
+				<li>Ціна до</li>
+				<li>Регіон</li>
+				<li>Місто</li>
+				<li>Об `єм двигуна</li>
+				<li>Тип палива</li>
+				<li>Тип коробки передач</li>
+				<li>Привід</li>
+				<li>Показати</li>
+			</ul>
+		</div>
+	</aside>
+	<main>
+		{% block content %}
+		{% endblock %}
+	</main>
+
+</body>
+</html>
