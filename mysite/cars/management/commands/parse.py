@@ -32,8 +32,8 @@ class Command(BaseCommand):
                     model=data_car['model'],
                     version=data_car['version'],
                     year=data_car['year'],
-                    prise_usd=data_car['prise_usd'],
-                    prise_uah=data_car['prise_uah'],
+                    price_usd=data_car['price_usd'],
+                    price_uah=data_car['price_uah'],
                     race=data_car['race'],
                     transmission=data_car['transmission'],
                     region=data_car['region'],
@@ -46,7 +46,9 @@ class Command(BaseCommand):
                     body_type=data_car['body_type'],
                     drive_type=data_car['drive_type'],
                     description=data_car['description'],
-                    date_created=datetime.datetime.strptime(data_car['date_created'], "%Y-%m-%d %H:%M:%S")
+                    date_created=datetime.datetime.strptime(data_car['date_created'], "%Y-%m-%d %H:%M:%S"),
+                    photo_card=data_car["photo_card"],
+                    photo_view=data_car["photo_view"]
                     )
 
                 car.save()
@@ -57,8 +59,8 @@ class Command(BaseCommand):
                     model=data_car['model'],
                     version=data_car['version'],
                     year=data_car['year'],
-                    prise_usd=data_car['prise_usd'],
-                    prise_uah=data_car['prise_uah'],
+                    price_usd=data_car['price_usd'],
+                    price_uah=data_car['price_uah'],
                     race=data_car['race'],
                     transmission=data_car['transmission'],
                     region=data_car['region'],
@@ -71,7 +73,9 @@ class Command(BaseCommand):
                     body_type=data_car['body_type'],
                     drive_type=data_car['drive_type'],
                     description=data_car['description'],
-                    date_created=datetime.datetime.strptime(data_car['date_created'], "%Y-%m-%d %H:%M:%S")
+                    date_created=datetime.datetime.strptime(data_car['date_created'], "%Y-%m-%d %H:%M:%S"),
+                    photo_card=data_car["photo_card"],
+                    photo_view=data_car["photo_view"]
                 )
                 logger.info(f'Car with id {data_car["id"]} was successfully update')
 
@@ -120,8 +124,8 @@ class Command(BaseCommand):
                     "model": json_data.get("modelName", 'Undefined value').strip(),
                     "version": json_data['autoData'].get("version", 'Undefined value').strip(),
                     "year": json_data['autoData'].get("year", 'Undefined value'),
-                    "prise_usd": str(json_data.get("USD", 'Undefined value')).replace(' ', ''),
-                    "prise_uah": str(json_data.get("UAH", 'Undefined value')).replace(' ', ''),
+                    "price_usd": str(json_data.get("USD", 'Undefined value')),
+                    "price_uah": str(json_data.get("UAH", 'Undefined value')),
                     "race": json_data['autoData'].get("race", 'Undefined value').strip(),
                     "transmission": json_data['autoData'].get("gearboxName", 'Undefined value').strip(),
                     "region": json_data['stateData'].get('name', 'Undefined value').strip(),
@@ -135,6 +139,8 @@ class Command(BaseCommand):
                     "drive_type": json_data["autoData"].get("driveName", 'Undefined value').strip(),
                     "description": json_data["autoData"].get("description", 'Undefined value'),
                     "date_created": json_data.get("addDate", 'Undefined value'),
+                    "photo_card": json_data["photoData"].get('seoLinkB', 'https://dummyimage.com/160'),
+                    "photo_view": json_data['photoData'].get('seoLinkF', 'https://dummyimage.com/360'),
                     "id": id_
                 })
                 logger.info(f'Try to save data car with id {id_}')

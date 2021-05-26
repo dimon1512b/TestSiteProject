@@ -6,8 +6,8 @@ class Cars(models.Model):
 	model = models.CharField(max_length=100)
 	version = models.CharField(default='', max_length=100)
 	year = models.IntegerField()
-	prise_usd = models.IntegerField()
-	prise_uah = models.IntegerField()
+	price_usd = models.IntegerField()
+	price_uah = models.IntegerField()
 	race = models.CharField(max_length=50)
 	transmission = models.CharField(max_length=20)
 	region = models.CharField(max_length=50)
@@ -22,9 +22,11 @@ class Cars(models.Model):
 	description = models.TextField()
 	date_created = models.DateTimeField()
 	date_added_to_DB = models.DateTimeField(auto_now_add=True)
+	photo_card = models.ImageField(null=True, blank=True)
+	photo_view = models.ImageField(null=True, blank=True)
 
 	class Meta:
 		verbose_name_plural = "Cars"
 
 	def __str__(self):
-		return f'{self.brand} {self.model} {self.version} / {self.prise_usd}$ / {self.date_created}'
+		return f'{self.brand} {self.model} {self.version} / {self.price_usd}$ / {self.date_created}'
