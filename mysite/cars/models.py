@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Cars(models.Model):
@@ -29,4 +30,4 @@ class Cars(models.Model):
 		verbose_name_plural = "Cars"
 
 	def __str__(self):
-		return f'{self.brand} {self.model} {self.version} / {self.price_usd}$ / {self.date_created}'
+		return f'{self.brand} {self.model} {self.version} / {self.price_usd}$ / {self.date_created} / {self.id}'

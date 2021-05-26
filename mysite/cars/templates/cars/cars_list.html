@@ -1,0 +1,9 @@
+{% extends 'cars/layout.html' %}
+
+{% block title %}{{ el.brand }}{{ el.model }}{{ el.year }}{% endblock %}
+
+{% block content %}
+	<div class="base_block">
+		<img class="base_photo" src="{{ el.photo_view }}" alt="">
+	</div>
+{%endblock%}

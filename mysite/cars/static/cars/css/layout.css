@@ -12,14 +12,20 @@ body {
     padding: 1%;
 }
 
-.marka {
-    color: red;
+.photo_card img {
+    position: absolute;
+    right: 15px;
+    height: 89%;
 }
 
 .full_name_car li, .race_city li, .price_usd_uah li, .engine_trans li, .pl_num_vin li, .date_created li {
     display: inline-block;
     font-size: 15px;
 }
+.description_card {
+
+}
+
 
 aside {
     background: #FFFFFF;
@@ -45,4 +51,5 @@ aside h3 {
     margin-top: 10%;
     font-size: 44px;
 }
+
 

@@ -4,6 +4,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
+	<style>
+		.photo_card img { float: right; }
+		.brand { color: red; }
+		.full_name_car a { text-decoration: none; color: white; }
+		.full_name_car a:visited { color: #6C8CD5; }
+		.full_name_car a:hover { color: red; }
+		.base_photo { float: right; }
+
+	</style>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{% static 'cars/css/layout.css' %}">
 </head>
