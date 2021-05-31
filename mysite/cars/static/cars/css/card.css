@@ -1,0 +1,30 @@
+.card {
+    background: #0B0B0B;
+    float: right;
+    margin-top: 50px;
+    margin-right: 235px;
+    margin-bottom: 50px;
+    width: 50%;
+    padding: 1%;
+}
+
+.photo_card img {
+    position: absolute;
+    right: 15px;
+    height: 89%;
+}
+
+.full_name_car li, .race_city li, .price_usd_uah li, .engine_trans li, .pl_num_vin li, .date_created li {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.photo_card img { float: right; }
+		.brand { color: red; }
+		.full_name_car a { text-decoration: none; color: white; }
+		.full_name_car a:visited { color: #6C8CD5; }
+		.full_name_car a:hover { color: red; }
+.full_name_car a:hover, .model:hover {
+			color: red;
+			transform: scale(1.10);
+		 }

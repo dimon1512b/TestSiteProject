@@ -4,45 +4,156 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
-	<style>
-		.photo_card img { float: right; }
-		.brand { color: red; }
-		.full_name_car a { text-decoration: none; color: white; }
-		.full_name_car a:visited { color: #6C8CD5; }
-		.full_name_car a:hover { color: red; }
-		.base_photo { float: right; }
-
-	</style>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{% static 'cars/css/layout.css' %}">
+	{% block head %}
+	{% endblock %}
 </head>
 <body>
 	<aside>
 		<img src="{% static 'cars/img/nissan_skyline.svg' %}" alt="nissan_skyline.svg">
 		<div class="filter">
 			<h3>Фільтрація</h3>
-			<ul>
-				<li>Тип транспорта</li>
-				<li>Тип кузова</li>
-				<li>Марка</li>
-				<li>Модель</li>
-				<li>Рік</li>
-				<li>Ціна від</li>
-				<li>Ціна до</li>
-				<li>Регіон</li>
-				<li>Місто</li>
-				<li>Об `єм двигуна</li>
-				<li>Тип палива</li>
-				<li>Тип коробки передач</li>
-				<li>Привід</li>
-				<li>Показати</li>
-			</ul>
+			<a class="home_button" href="/"><button>Головна сторінка</button></a>
+			<form method="get" action="/">
+				<ul>
+					<! -- body_type -->
+					<li>
+						<select name="body_type">
+							<option value="" disabled selected>Тип кузова</option>
+							{% for body in data_filter.body_type %}
+								{% if body != 'Undefined value' and body != 'Не вказано' %}
+									<option value="{{body}}">{{body}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select for data_brands -->
+					<li>
+						<select name="brand">
+							<option value="" disabled selected>Марка</option>
+							{% for brand in data_filter.brand %}
+								<option value="{{brand}}">{{brand}}</option>
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select for data_models selected is Nissan-->
+					<li>
+						<select name="model">
+							<option value="" disabled selected>Модель</option>
+							{% for model in data_filter.model %}
+								<option value="{{model}}">{{model}}</option>
+							{% endfor %}
+						</select>
+					</li>
+					<! -- text -->
+					<li>
+						<select name="year">
+							<option value="" disabled selected>Рік</option>
+							{% for year in data_filter.year %}
+								<option value="{{year}}">{{year}}</option>
+							{% endfor %}
+						</select>
+					</li>
+					<! -- text -->
+					<li class="price_text"><input type="text" placeholder="Вартість $ від" name="price_from"></li>
+					<! -- text -->
+					<li class="price_text"><input type="text" placeholder="Вартість $ до" name="price_to"></li>
+					<! -- select for data_regions -->
+					<li>
+						<select name="region">
+							<option value="" disabled selected>Регіон</option>
+							{% for region in data_filter.region %}
+								{% if region != '' and region != 'Undefined value' %}
+									<option value="{{region}}">{{region}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select for data_cityes -->
+					<li>
+						<select name="city">
+							<option value="" disabled selected>Місто</option>
+							{% for city in data_filter.city %}
+								<option value="{{city}}">{{city}}</option>
+							{% endfor %}
+						</select>
+					</li>
+					<! -- text -->
+					<li>
+						<select name="engine_capacity">
+							<option value="" disabled selected>Об'єм двигуна</option>
+							{% for engine_capacity in data_filter.engine_capacity %}
+								<option value="{{engine_capacity}}">{{engine_capacity}}</option>
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select -->
+					<li>
+						<select name="engine_type">
+							<option value="" disabled selected>Тип палива</option>
+							{% for engine_type in data_filter.engine_type %}
+								{% if engine_type != "Не вказано" %}
+									<option value="{{engine_type}}">{{engine_type}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select -->
+					<li>
+						<select name="transmission">
+							<option value="" disabled selected>Коробка передач</option>
+							{% for transmission in data_filter.transmission %}
+								{% if transmission != 'Не вказано' %}
+									<option value="{{transmission}}">{{transmission}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</li>
+					<! -- select -->
+					<li>
+						<select name="drive_type">
+							<option value="" disabled selected>Привід</option>
+							{% for drive_type in data_filter.drive_type %}
+								{% if drive_type != 'Не вказано' %}
+									<option value="{{drive_type}}">{{drive_type}} привід</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</li>
+					<li><button formaction type="reset">Скинути</button></li>
+					<! -- button submit -->
+					<li><button type="submit">Показати</button></li>
+					<! -- button reset -->
+
+				</ul>
+			</form>
 		</div>
 	</aside>
 	<main>
 		{% block content %}
 		{% endblock %}
+		{% if page_obj.has_other_pages %}
+		<nav class="list-pages">
+			<ul>
+				{% for p in page_obj.paginator.page_range %}
+					{% if page_obj.number == p %}
+						<li class="page-num page-num-selected">{{ p }}</li>
+					{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+						{% if full_path == '/' %}
+							<li class="page-num">
+								<a href="?page={{ p }}">{{ p }}</a>
+							</li>
+						{% else %}
+							<li class="page-num">
+								<a href="{{ full_path }}&page={{ p }}">{{ p }}</a>
+							</li>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+		{% endif %}
 	</main>
-
 </body>
 </html>

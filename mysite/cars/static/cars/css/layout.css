@@ -3,29 +3,6 @@ body {
     color: white;
 }
 
-.card {
-    background: #0B0B0B;
-    float: right;
-    margin-top: 50px;
-    margin-right: 235px;
-    width: 50%;
-    padding: 1%;
-}
-
-.photo_card img {
-    position: absolute;
-    right: 15px;
-    height: 89%;
-}
-
-.full_name_car li, .race_city li, .price_usd_uah li, .engine_trans li, .pl_num_vin li, .date_created li {
-    display: inline-block;
-    font-size: 15px;
-}
-.description_card {
-
-}
-
 
 aside {
     background: #FFFFFF;
@@ -52,4 +29,53 @@ aside h3 {
     font-size: 44px;
 }
 
+.list-pages {
+    position: static;
+    margin-left: 490px;
+    height: 50%;
+    width: 50%;
+    text-align: center;
+}
 
+.list-pages a {
+	color: #FFFFFF;
+	font-size: 24px;
+	text-decoration: none;
+}
+.list-pages .page-num, .page-num-selected {
+	display: inline-block;
+	width: 60px;
+	height: 38px;
+	padding: 0px 0 0 0;
+	border: 1px solid #d0d0d0;
+	border-radius: 30px;
+}
+.list-pages .page-num:hover {
+	box-shadow: 3px 3px 1px #d0d0d0;
+}
+.list-pages .page-num-selected {
+	border: none;
+	color: #FFFFFF;
+	font-size: 20px;
+}
+.list-pages .page-num-selected:hover {
+	box-shadow: none;
+}
+
+select {
+    width: 186px;
+}
+
+
+.filter li {
+    list-style-type: none;
+}
+
+.filter {
+    margin: 0px;
+}
+
+
+.home_button {
+    margin-left: 40px;
+}

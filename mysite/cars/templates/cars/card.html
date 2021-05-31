@@ -1,3 +1,5 @@
+{% load static %}
+{% block head %}<link rel="stylesheet" href="{% static 'cars/css/card.css' %}">{% endblock %}
 <div class="card">
 	<div class="photo_card">
 		<img src="{{ el.photo_card }}" alt="">
@@ -9,6 +11,7 @@
 					<li class="brand">{{ el.brand }}</li>
 					<li class="model">{{ el.model }}</li>
 					<li class="version">{{ el.version }}</li>
+					<li class="year">{{ el.year }}</li>
 				</ul>
 			</a>
 		</div>

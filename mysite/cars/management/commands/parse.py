@@ -28,7 +28,7 @@ class Command(BaseCommand):
             try:
                 car = Cars(
                     id=data_car['id'],
-                    brand=data_car['brand'],
+                    brand=data_car.get('brand'),
                     model=data_car['model'],
                     version=data_car['version'],
                     year=data_car['year'],
@@ -145,6 +145,7 @@ class Command(BaseCommand):
                 })
                 logger.info(f'Try to save data car with id {id_}')
                 save_data_to_db(data_car)
+            print(type(data_car))
             print('Successful finished')
 
         def get_ids_and_pages(url, params=None):

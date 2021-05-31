@@ -1,9 +1,51 @@
 {% extends 'cars/layout.html' %}
+{% load static %}
+
 
 {% block title %}{{ el.brand }}{{ el.model }}{{ el.year }}{% endblock %}
-
+{% block head %}
+	<link rel="stylesheet" href="{% static 'cars/css/cars_list.css' %}">
+{% endblock %}
 {% block content %}
 	<div class="base_block">
-		<img class="base_photo" src="{{ el.photo_view }}" alt="">
+		<div class="img_block">
+			<img class="base_photo" src="{{ el.photo_view }}" alt="">
+		</div>
+		<div class="data_block">
+			<div class="full_name_block">
+				<ul>
+					<li>{{ el.brand }}</li>
+					<li>{{ el.model }}</li>
+					<li>{{ el.version }}</li>
+					<li>{{ el.year }} рік</li>
+				</ul>
+			</div>
+			<div class="price">
+				<ul>
+					<li>-----{{ el.price_usd }}USD-----</li>
+					<li>-----{{ el.price_uah }}UAH-----</li>
+				</ul>
+			</div>
+			<div class="another_data">
+				<ul>
+					<li>{{ el.race }}</li>
+					<li>Трансмісія {{ el.transmission }}</li>
+					<li>Регіон - {{ el.region }}</li>
+					<li>Знаходиться у {{ el.city }}</li>
+					<li>Тип двигуна - {{ el.engine_type }}</li>
+					<li>Літраж - {{ el.engine_capacity }}</li>
+					<li>Номерний знак - {{ el.plate_number }}</li>
+					<li>VIN - {{ el.vin_code }}</li>
+					<li>Тип транспорта - {{ el.type_of_transport }}</li>
+					<li>Тип кузова - {{ el.body_type }}</li>
+					<li>Привід - {{ el.drive_type }}</li>
+					<li>Дата створення оголошення - {{ el.date_created }}</li>
+					<li>Дата створення в нашій базі - {{ el.date_added_to_DB }}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="description_block">
+			<p>{{ el.description }}</p>
+		</div>
 	</div>
 {%endblock%}
