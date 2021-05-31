@@ -1,24 +1,35 @@
 from django.core.paginator import Paginator
 from django.http import HttpRequest
 from django.shortcuts import render
+
 from .models import Cars
-from django.db.models import Q
 
-
-data_brand = {obj.brand for obj in Cars.objects.all()}
-data_model = {obj.model for obj in Cars.objects.all()}
-data_transmission = {obj.transmission for obj in Cars.objects.all()}
-data_region = sorted({obj.region for obj in Cars.objects.all()})
-data_city = sorted({obj.city for obj in Cars.objects.all()})
-data_engine_type = {obj.engine_type for obj in Cars.objects.all()}
-data_body_type = {obj.body_type for obj in Cars.objects.all()}
-data_drive_type = {obj.drive_type for obj in Cars.objects.all()}
-data_year = sorted({obj.year for obj in Cars.objects.all()})
-data_engine_capacity = {obj.engine_capacity for obj in Cars.objects.all()}
-
+data_brand = set()
+data_model = set()
+data_transmission = set()
+data_region = set()
+data_city = set()
+data_engine_type = set()
+data_drive_type = set()
+data_year = set()
+data_engine_capacity = set()
+data_body_type = set()
+for obj in Cars.objects.all():
+	data_brand.add(obj.brand)
+	data_model.add(obj.model)
+	data_transmission.add(obj.transmission)
+	data_region.add(obj.region)
+	data_city.add(obj.city)
+	data_engine_type.add(obj.engine_type)
+	data_body_type.add(obj.body_type)
+	data_drive_type.add(obj.drive_type)
+	data_year.add(obj.year)
+	data_engine_capacity.add(obj.engine_capacity)
 data_filter = {'brand': data_brand, 'model': data_model, 'transmission': data_transmission, 'region': data_region,
                'city': data_city, 'engine_type': data_engine_type, 'body_type': data_body_type,
                'drive_type': data_drive_type, 'year': data_year, 'engine_capacity': data_engine_capacity}
+
+print(f'data_filter = {data_filter}')
 
 
 def filters(request):
@@ -87,12 +98,12 @@ def base_page(request):
 	data = Cars.objects.order_by('date_created')
 	paginator = Paginator(data, 5)
 	page_number = request.GET.get('page')
-	page_obj = paginator.get_page(page_number) # Ссылка на конкретную страницу пагинатора
+	page_obj = paginator.get_page(page_number)  # Ссылка на конкретную страницу пагинатора
 	for i in data_filter:
 		if request.GET.get(i):
 			print('filter def get(i)')
 			return filters(request)
-	if (request.GET.get('price_from') not in ('', None)) or  (request.GET.get('price_to') not in ('', None)):
+	if (request.GET.get('price_from') not in ('', None)) or (request.GET.get('price_to') not in ('', None)):
 		print('filter def price')
 		print(request.GET.get('price_from'))
 		print(request.GET.get('price_to '))
@@ -126,7 +137,6 @@ def detail_car(request, id):
 # {'brand': brand},
 
 
-
 # class BasePage(ListView):
 
 # model = Cars
@@ -146,5 +156,3 @@ def detail_car(request, id):
 # model = Cars
 # context_object_name = 'el'
 # template_name = 'cars/cars_list.html'
-
-

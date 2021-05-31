@@ -5,7 +5,7 @@ body {
 
 
 aside {
-    background: #FFFFFF;
+    background: #fff;
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 20%; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -14,7 +14,7 @@ aside {
     left: 0;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
-    padding: 2.4%;
+    padding: 1%;
     color: #151515;
 }
 
@@ -22,10 +22,13 @@ aside img {
     width: 225px;
     position: relative;
     top: -10px;
+    left: 23px;
 }
 
 aside h3 {
-    margin-top: 10%;
+    position:relative;
+    top: -15px;
+    left: 23px;
     font-size: 44px;
 }
 
@@ -38,7 +41,7 @@ aside h3 {
 }
 
 .list-pages a {
-	color: #FFFFFF;
+	color: #fff;
 	font-size: 24px;
 	text-decoration: none;
 }
@@ -55,7 +58,7 @@ aside h3 {
 }
 .list-pages .page-num-selected {
 	border: none;
-	color: #FFFFFF;
+	color: #fff;
 	font-size: 20px;
 }
 .list-pages .page-num-selected:hover {
@@ -72,10 +75,21 @@ select {
 }
 
 .filter {
-    margin: 0px;
+    position: relative;
+    float: left;
+    margin-left: 3px;
 }
 
 
 .home_button {
     margin-left: 40px;
+    background: red;
+
+}
+
+.home_button button, .reset, .submit {
+    background: red;
+    color: #fff;
+    width: 186px;
+    margin-bottom: 0px;
 }
