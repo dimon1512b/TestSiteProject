@@ -20,105 +20,198 @@
 					<! -- body_type -->
 					<li>
 						<select name="body_type">
-							<option value="" disabled selected>Тип кузова</option>
-							{% for body in data_filter.body_type %}
-								{% if body != 'Undefined value' and body != 'Не вказано' %}
-									<option value="{{body}}">{{body}}</option>
-								{% endif %}
-							{% endfor %}
+							{% if request.body_type %}
+								<option value="{{request.body_type}}" selected>{{request.body_type}}</option>
+								{% for body in data_filter.body_type %}
+									{% if body != 'Undefined value' and body != 'Не вказано' and body != request.body_type %}
+										<option value="{{body}}">{{body}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Тип кузова</option>
+								{% for body in data_filter.body_type %}
+									{% if body != 'Undefined value' and body != 'Не вказано' %}
+										<option value="{{body}}">{{body}}</option>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select for data_brands -->
 					<li>
 						<select name="brand">
-							<option value="" disabled selected>Марка</option>
-							{% for brand in data_filter.brand %}
-								<option value="{{brand}}">{{brand}}</option>
-							{% endfor %}
+							{% if request.brand %}
+								<option value="{{request.brand}}" selected>{{request.brand}}</option>
+								{% for brand in data_filter.brand %}
+									{% if brand != 'Undefined value' and brand != 'Не вказано' and brand != request.brand %}
+										<option value="{{brand}}">{{brand}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Марка</option>
+								{% for brand in data_filter.brand %}
+									<option value="{{brand}}">{{brand}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select for data_models selected is Nissan-->
 					<li>
 						<select name="model">
-							<option value="" disabled selected>Модель</option>
-							{% for model in data_filter.model %}
-								<option value="{{model}}">{{model}}</option>
-							{% endfor %}
+							{% if request.model %}
+								<option value="{{request.model}}" selected>{{request.model}}</option>
+								{% for model in data_filter.model %}
+									{% if model != 'Undefined value' and model != 'Не вказано' and model != request.model %}
+										<option value="{{model}}">{{model}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Модель</option>
+								{% for model in data_filter.model %}
+									<option value="{{model}}">{{model}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- text -->
 					<li>
 						<select name="year">
-							<option value="" disabled selected>Рік</option>
-							{% for year in data_filter.year %}
-								<option value="{{year}}">{{year}}</option>
-							{% endfor %}
+							{% if request.year %}
+								<option value="{{request.year}}" selected>{{request.year}}</option>
+								{% for year in data_filter.year %}
+									{% if year != 'Undefined value' and year != 'Не вказано' and year != request.year %}
+										<option value="{{year}}">{{year}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Рік</option>
+								{% for year in data_filter.year %}
+									<option value="{{year}}">{{year}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
-					<! -- text -->
-					<li class="price_text"><input type="text" placeholder="Вартість $ від" name="price_from"></li>
-					<! -- text -->
-					<li class="price_text"><input type="text" placeholder="Вартість $ до" name="price_to"></li>
+					{% if request.price_from != '' %}
+						<! -- text -->
+						<li class="price_text"><input type="text" placeholder="Вартість $ від" name="price_from"
+						                              value="{{request.price_from}}"></li>
+					{% else %}
+						<li class="price_text"><input type="text" placeholder="Вартість $ від" name="price_from"></li>
+					{% endif %}
+						<! -- text -->
+					{% if request.price_to != '' %}
+						<! -- text -->
+						<li class="price_text"><input type="text" placeholder="Вартість $ до" name="price_to"
+						                              value="{{request.price_to}}"></li>
+					{% else %}
+						<li class="price_text"><input type="text" placeholder="Вартість $ до" name="price_to"></li>
+					{% endif %}
 					<! -- select for data_regions -->
 					<li>
 						<select name="region">
-							<option value="" disabled selected>Регіон</option>
-							{% for region in data_filter.region %}
-								{% if region != '' and region != 'Undefined value' %}
+							{% if request.region %}
+								<option value="{{request.region}}" selected>{{request.region}}</option>
+								{% for region in data_filter.region %}
+									{% if region != 'Undefined value' and region != 'Не вказано' and region != request.region %}
+										<option value="{{region}}">{{region}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Регіон</option>
+								{% for region in data_filter.region %}
 									<option value="{{region}}">{{region}}</option>
-								{% endif %}
-							{% endfor %}
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select for data_cityes -->
 					<li>
 						<select name="city">
-							<option value="" disabled selected>Місто</option>
-							{% for city in data_filter.city %}
-								<option value="{{city}}">{{city}}</option>
-							{% endfor %}
+							{% if request.city %}
+								<option value="{{request.city}}" selected>{{request.city}}</option>
+								{% for city in data_filter.city %}
+									{% if city != 'Undefined value' and city != 'Не вказано' and city != request.city %}
+										<option value="{{city}}">{{city}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Місто</option>
+								{% for city in data_filter.city %}
+									<option value="{{city}}">{{city}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- text -->
 					<li>
 						<select name="engine_capacity">
-							<option value="" disabled selected>Об'єм двигуна</option>
-							{% for engine_capacity in data_filter.engine_capacity %}
-								<option value="{{engine_capacity}}">{{engine_capacity}}</option>
-							{% endfor %}
+							{% if request.engine_capacity %}
+								<option value="{{request.engine_capacity}}" selected>{{request.engine_capacity}}</option>
+								{% for engine_capacity in data_filter.engine_capacity %}
+									{% if engine_capacity != 'Undefined value' and engine_capacity != 'Не вказано' and engine_capacity != request.engine_capacity %}
+										<option value="{{engine_capacity}}">{{engine_capacity}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Об'єм двигуна</option>
+								{% for engine_capacity in data_filter.engine_capacity %}
+									<option value="{{engine_capacity}}">{{engine_capacity}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select -->
 					<li>
 						<select name="engine_type">
-							<option value="" disabled selected>Тип палива</option>
-							{% for engine_type in data_filter.engine_type %}
-								{% if engine_type != "Не вказано" %}
+							{% if request.engine_type %}
+								<option value="{{request.engine_type}}" selected>{{request.engine_type}}</option>
+								{% for engine_type in data_filter.engine_type %}
+									{% if engine_type != 'Undefined value' and engine_type != 'Не вказано' and engine_type != request.engine_type %}
+										<option value="{{engine_type}}">{{engine_type}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Тип палива</option>
+								{% for engine_type in data_filter.engine_type %}
 									<option value="{{engine_type}}">{{engine_type}}</option>
-								{% endif %}
-							{% endfor %}
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select -->
 					<li>
 						<select name="transmission">
-							<option value="" disabled selected>Коробка передач</option>
-							{% for transmission in data_filter.transmission %}
-								{% if transmission != 'Не вказано' %}
+							{% if request.transmission %}
+								<option value="{{request.transmission}}" selected>{{request.transmission}}</option>
+								{% for transmission in data_filter.transmission %}
+									{% if transmission != 'Undefined value' and transmission != 'Не вказано' and transmission != request.transmission %}
+										<option value="{{transmission}}">{{transmission}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Коробка передач</option>
+								{% for transmission in data_filter.transmission %}
 									<option value="{{transmission}}">{{transmission}}</option>
-								{% endif %}
-							{% endfor %}
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<! -- select -->
 					<li>
 						<select name="drive_type">
-							<option value="" disabled selected>Привід</option>
-							{% for drive_type in data_filter.drive_type %}
-								{% if drive_type != 'Не вказано' %}
-									<option value="{{drive_type}}">{{drive_type}} привід</option>
-								{% endif %}
-							{% endfor %}
+							{% if request.drive_type %}
+								<option value="{{request.drive_type}}" selected>{{request.drive_type}}</option>
+								{% for drive_type in data_filter.drive_type %}
+									{% if drive_type != 'Undefined value' and drive_type != 'Не вказано' and drive_type != request.drive_type %}
+										<option value="{{drive_type}}">{{drive_type}}</option>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option value="" disabled selected>Привід</option>
+								{% for drive_type in data_filter.drive_type %}
+									<option value="{{drive_type}}">{{drive_type}}</option>
+								{% endfor %}
+							{% endif %}
 						</select>
 					</li>
 					<li><button class="reset" formaction type="reset">Скинути</button></li>

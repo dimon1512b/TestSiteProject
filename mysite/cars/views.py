@@ -25,9 +25,16 @@ for obj in Cars.objects.all():
 	data_drive_type.add(obj.drive_type)
 	data_year.add(obj.year)
 	data_engine_capacity.add(obj.engine_capacity)
-data_filter = {'brand': data_brand, 'model': data_model, 'transmission': data_transmission, 'region': data_region,
-               'city': data_city, 'engine_type': data_engine_type, 'body_type': data_body_type,
-               'drive_type': data_drive_type, 'year': data_year, 'engine_capacity': data_engine_capacity}
+data_filter = {'brand': data_brand,
+               'model': sorted(data_model),
+               'transmission': data_transmission,
+               'region':sorted(data_region),
+               'city': sorted(data_city),
+               'engine_type': data_engine_type,
+               'body_type': data_body_type,
+               'drive_type': data_drive_type,
+               'year': sorted(data_year),
+               'engine_capacity': sorted(data_engine_capacity)}
 
 print(f'data_filter = {data_filter}')
 
@@ -85,7 +92,7 @@ def filters(request):
 	return render(request, 'cars/base.html', {'data': page_obj_1.object_list,
 	                                          'data_filter': data_filter,
 	                                          'page_obj': page_obj_1,
-	                                          'request': request,
+	                                          'request': request_get,
 	                                          'full_path': full_path})
 
 
@@ -113,7 +120,7 @@ def base_page(request):
 			'data': page_obj.object_list,
 			'page_obj': page_obj,
 			'data_filter': data_filter,
-			'request': request,
+			'request': request.GET,
 			'full_path': full_path})
 
 
