@@ -6,7 +6,8 @@ import requests
 from django.utils import timezone
 import json.decoder
 import logging.config
-from .logging_configuration import LOGGING
+from .logging_conf import LOGGING
+
 logging.config.dictConfig(LOGGING)
 logger = logging.getLogger('parse')
 logger.info('Logger was created. Script was started')
@@ -145,7 +146,6 @@ class Command(BaseCommand):
                 })
                 logger.info(f'Try to save data car with id {id_}')
                 save_data_to_db(data_car)
-            print(type(data_car))
             print('Successful finished')
 
         def get_ids_and_pages(url, params=None):

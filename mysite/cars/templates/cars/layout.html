@@ -20,6 +20,7 @@
 					<! -- body_type -->
 					<li>
 						<select name="body_type">
+							<option value="">Всі</option>
 							{% if request.body_type %}
 								<option value="{{request.body_type}}" selected>{{request.body_type}}</option>
 								{% for body in data_filter.body_type %}
@@ -40,6 +41,7 @@
 					<! -- select for data_brands -->
 					<li>
 						<select name="brand">
+							<option value="">Всі</option>
 							{% if request.brand %}
 								<option value="{{request.brand}}" selected>{{request.brand}}</option>
 								{% for brand in data_filter.brand %}
@@ -58,6 +60,7 @@
 					<! -- select for data_models selected is Nissan-->
 					<li>
 						<select name="model">
+							<option value="">Всі</option>
 							{% if request.model %}
 								<option value="{{request.model}}" selected>{{request.model}}</option>
 								{% for model in data_filter.model %}
@@ -76,6 +79,7 @@
 					<! -- text -->
 					<li>
 						<select name="year">
+							<option value="">Всі</option>
 							{% if request.year %}
 								<option value="{{request.year}}" selected>{{request.year}}</option>
 								{% for year in data_filter.year %}
@@ -109,6 +113,7 @@
 					<! -- select for data_regions -->
 					<li>
 						<select name="region">
+							<option value="">Всі</option>
 							{% if request.region %}
 								<option value="{{request.region}}" selected>{{request.region}}</option>
 								{% for region in data_filter.region %}
@@ -127,6 +132,7 @@
 					<! -- select for data_cityes -->
 					<li>
 						<select name="city">
+							<option value="">Всі</option>
 							{% if request.city %}
 								<option value="{{request.city}}" selected>{{request.city}}</option>
 								{% for city in data_filter.city %}
@@ -145,6 +151,7 @@
 					<! -- text -->
 					<li>
 						<select name="engine_capacity">
+							<option value="">Всі</option>
 							{% if request.engine_capacity %}
 								<option value="{{request.engine_capacity}}" selected>{{request.engine_capacity}}</option>
 								{% for engine_capacity in data_filter.engine_capacity %}
@@ -163,6 +170,7 @@
 					<! -- select -->
 					<li>
 						<select name="engine_type">
+							<option value="">Всі</option>
 							{% if request.engine_type %}
 								<option value="{{request.engine_type}}" selected>{{request.engine_type}}</option>
 								{% for engine_type in data_filter.engine_type %}
@@ -181,6 +189,7 @@
 					<! -- select -->
 					<li>
 						<select name="transmission">
+							<option value="">Всі</option>
 							{% if request.transmission %}
 								<option value="{{request.transmission}}" selected>{{request.transmission}}</option>
 								{% for transmission in data_filter.transmission %}
@@ -199,6 +208,7 @@
 					<! -- select -->
 					<li>
 						<select name="drive_type">
+							<option value="">Всі</option>
 							{% if request.drive_type %}
 								<option value="{{request.drive_type}}" selected>{{request.drive_type}}</option>
 								{% for drive_type in data_filter.drive_type %}

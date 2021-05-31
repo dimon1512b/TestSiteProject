@@ -1,8 +1,12 @@
 from django.core.paginator import Paginator
 from django.http import HttpRequest
 from django.shortcuts import render
-
+import logging.config
+from .logging_conf import LOGGING
 from .models import Cars
+
+logging.config.dictConfig(LOGGING)
+logger = logging.getLogger('views')
 
 data_brand = set()
 data_model = set()
@@ -14,6 +18,7 @@ data_drive_type = set()
 data_year = set()
 data_engine_capacity = set()
 data_body_type = set()
+
 for obj in Cars.objects.all():
 	data_brand.add(obj.brand)
 	data_model.add(obj.model)
@@ -25,10 +30,11 @@ for obj in Cars.objects.all():
 	data_drive_type.add(obj.drive_type)
 	data_year.add(obj.year)
 	data_engine_capacity.add(obj.engine_capacity)
+
 data_filter = {'brand': data_brand,
                'model': sorted(data_model),
                'transmission': data_transmission,
-               'region':sorted(data_region),
+               'region': sorted(data_region),
                'city': sorted(data_city),
                'engine_type': data_engine_type,
                'body_type': data_body_type,
@@ -36,17 +42,18 @@ data_filter = {'brand': data_brand,
                'year': sorted(data_year),
                'engine_capacity': sorted(data_engine_capacity)}
 
-print(f'data_filter = {data_filter}')
+logger.info(f'data_filter = {data_filter}')
 
 
 def filters(request):
-	print('filter def')
+
+	logger.info('filter def')
 	full_path = HttpRequest.get_full_path(request)
 	request_get = request.GET
 	filter = Cars.objects.all()
 	for param in request_get:
 		if param == 'price_from' and request_get.get(param) != '':
-			print('Условие price_from СРАБОТАЛО!')
+			logger.info('Условие price_from СРАБОТАЛО!')
 			filter = filter.filter(price_usd__gte=str(request_get.get(param)))
 			continue
 		elif param == 'price_to' and request_get.get(param) != '':
@@ -62,7 +69,10 @@ def filters(request):
 			filter = filter.filter(model=request_get.get(param))
 			continue
 		elif param == 'year':
-			filter = filter.filter(year=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(year=request_get.get(param))
+			else:
+				filter = filter.filter(year=None)
 			continue
 		elif param == 'region':
 			filter = filter.filter(region=request_get.get(param))
@@ -71,7 +81,10 @@ def filters(request):
 			filter = filter.filter(city=request_get.get(param))
 			continue
 		elif param == 'engine_capacity':
-			filter = filter.filter(engine_capacity=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(engine_capacity=request_get.get(param))
+			else:
+				filter = filter.filter(engine_capacity=None)
 			continue
 		elif param == 'engine_type':
 			filter = filter.filter(engine_type=request_get.get(param))
@@ -82,10 +95,12 @@ def filters(request):
 		elif param == 'drive_type':
 			filter = filter.filter(drive_type=request_get.get(param))
 			continue
-		print(param)
-		print(type(param))
-	print(filter)
-	paginator_f = Paginator(filter, 5)
+
+		logger.info(param)
+		logger.info(type(param))
+
+	logger.info(filter)
+	paginator_f = Paginator(filter, 20)
 	page_number = request.GET.get('page')
 	page_obj_1 = paginator_f.get_page(page_number)
 
@@ -97,23 +112,24 @@ def filters(request):
 
 
 def base_page(request):
-	print('base_page def')
-	print(f'REQUEST IS {request}')
-	print(f'REQUEST IS {request.GET}')
+
+	logger.info('base_page def')
+	logger.info(f'REQUEST IS {request}')
+	logger.info(f'REQUEST IS {request.GET}')
 	full_path = HttpRequest.get_full_path(request)
-	print(f'full_path {full_path}')
+	logger.info(f'full_path {full_path}')
 	data = Cars.objects.order_by('date_created')
-	paginator = Paginator(data, 5)
+	paginator = Paginator(data, 20)
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)  # Ссылка на конкретную страницу пагинатора
 	for i in data_filter:
 		if request.GET.get(i):
-			print('filter def get(i)')
+			logger.info('filter def get(i)')
 			return filters(request)
 	if (request.GET.get('price_from') not in ('', None)) or (request.GET.get('price_to') not in ('', None)):
-		print('filter def price')
-		print(request.GET.get('price_from'))
-		print(request.GET.get('price_to '))
+		logger.info('filter def price')
+		logger.info(request.GET.get('price_from'))
+		logger.info(request.GET.get('price_to '))
 		return filters(request)
 	else:
 		return render(request, 'cars/base.html', {
@@ -125,24 +141,14 @@ def base_page(request):
 
 
 def detail_car(request, id):
-	print('detail_car def')
+	logger.info('detail_car def')
 	car = Cars.objects.get(pk=id)
-	print(f'it is request: ===>>> {request}')
-	print(f'it is type request: ===>>> {type(request)}')
-	print(f'it is request.GET: ===>>> {request.GET}')
-	print(f'it is id: ===>>> {id}')
-	print(f'it is type id: ===>>> {type(id)}')
+	logger.info(f'it is request: ===>>> {request}')
+	logger.info(f'it is type request: ===>>> {type(request)}')
+	logger.info(f'it is request.GET: ===>>> {request.GET}')
+	logger.info(f'it is id: ===>>> {id}')
+	logger.info(f'it is type id: ===>>> {type(id)}')
 	return render(request, 'cars/cars_list.html', {'el': car, 'data_filter': data_filter})
-
-# {'brands': brand},
-# {'brand': model},
-# {'brand': transmission},
-# {'brand': region},
-# {'brand': brand},
-# {'brand': brand},
-# {'brand': brand},
-# {'brand': brand},
-
 
 # class BasePage(ListView):
 
