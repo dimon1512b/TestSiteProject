@@ -32,21 +32,20 @@ for obj in Cars.objects.all():
 	data_engine_capacity.add(obj.engine_capacity)
 
 data_filter = {'brand': data_brand,
-               'model': sorted(data_model),
-               'transmission': data_transmission,
-               'region': sorted(data_region),
-               'city': sorted(data_city),
-               'engine_type': data_engine_type,
-               'body_type': data_body_type,
-               'drive_type': data_drive_type,
-               'year': sorted(data_year),
-               'engine_capacity': sorted(data_engine_capacity)}
+				'model': sorted(data_model),
+				'transmission': data_transmission,
+				'region': sorted(data_region),
+				'city': sorted(data_city),
+				'engine_type': data_engine_type,
+				'body_type': data_body_type,
+				'drive_type': data_drive_type,
+				'year': sorted(data_year),
+				'engine_capacity': sorted(data_engine_capacity)}
 
 logger.info(f'data_filter = {data_filter}')
 
 
 def filters(request):
-
 	logger.info('filter def')
 	full_path = HttpRequest.get_full_path(request)
 	request_get = request.GET
@@ -60,40 +59,44 @@ def filters(request):
 			filter = filter.filter(price_usd__lte=request_get.get(param))
 			continue
 		elif param == 'body_type':
-			filter = filter.filter(body_type=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(body_type=request_get.get(param))
 			continue
 		elif param == 'brand':
-			filter = filter.filter(brand=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(brand=request_get.get(param))
 			continue
 		elif param == 'model':
-			filter = filter.filter(model=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(model=request_get.get(param))
 			continue
 		elif param == 'year':
 			if request_get.get(param) != '':
 				filter = filter.filter(year=request_get.get(param))
-			else:
-				filter = filter.filter(year=None)
 			continue
 		elif param == 'region':
-			filter = filter.filter(region=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(region=request_get.get(param))
 			continue
 		elif param == 'city':
-			filter = filter.filter(city=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(city=request_get.get(param))
 			continue
 		elif param == 'engine_capacity':
 			if request_get.get(param) != '':
 				filter = filter.filter(engine_capacity=request_get.get(param))
-			else:
-				filter = filter.filter(engine_capacity=None)
 			continue
 		elif param == 'engine_type':
-			filter = filter.filter(engine_type=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(engine_type=request_get.get(param))
 			continue
 		elif param == 'transmission':
-			filter = filter.filter(transmission=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(transmission=request_get.get(param))
 			continue
 		elif param == 'drive_type':
-			filter = filter.filter(drive_type=request_get.get(param))
+			if request_get.get(param) != '':
+				filter = filter.filter(drive_type=request_get.get(param))
 			continue
 
 		logger.info(param)
@@ -112,7 +115,6 @@ def filters(request):
 
 
 def base_page(request):
-
 	logger.info('base_page def')
 	logger.info(f'REQUEST IS {request}')
 	logger.info(f'REQUEST IS {request.GET}')
